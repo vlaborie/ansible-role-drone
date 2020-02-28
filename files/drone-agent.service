@@ -1,0 +1,16 @@
+[Unit]
+Description=Drone agent
+ 
+[Service]
+User=drone
+Group=drone
+Environment=DRONE_LOGS_TEXT=true
+EnvironmentFile=/etc/drone/agent.conf
+
+ExecStart=/usr/local/bin/drone-agent
+WorkingDirectory=/var/lib/drone
+Restart=on-failure
+TimeoutStopSec=300
+ 
+[Install]
+WantedBy=multi-user.target

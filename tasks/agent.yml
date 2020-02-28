@@ -1,0 +1,46 @@
+---
+- name: install docker
+  apt:
+    name: ['docker.io']
+    state: present
+    install_recommends: False
+  tags: drone
+
+- name: add drone user to docker group
+  user:
+    name: drone
+    groups: docker
+    append: True
+  tags: drone
+
+- name: copy drone-agent config
+  template:
+    src: agent.conf.j2
+    dest: /etc/drone/agent.conf
+    mode: "0640"
+    group: drone
+  notify: restart drone-agent
+  tags: drone
+
+- name: copy drone-agent service
+  copy:
+    src: drone-agent.service
+    dest: /etc/systemd/system/drone-agent.service
+  tags: drone
+
+- name: copy drone-agent binary
+  get_url:
+    url: "https://github.com/vlaborie/ansible-role-drone/blob/master/files/drone-agent?raw=true"
+    checksum: "sha256:6207b0a14f6ec5208f5e4bd6e7854231cc44966e9a0c2f1573bc2c82bfb98efb"
+    dest: /usr/local/bin/drone-agent
+    mode: "0755"
+  notify: restart drone-server
+  tags: drone
+
+- name: start and enable drone agent
+  systemd:
+    name: drone-agent
+    state: started
+    daemon-reload: True
+    enabled: True
+  tags: drone

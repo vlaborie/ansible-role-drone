@@ -1,0 +1,10 @@
+---
+- name: restart drone-server
+  systemd:
+    name: drone-server
+    state: restarted
+
+- name: restart drone-agent
+  systemd:
+    name: drone-agent
+    state: restarted

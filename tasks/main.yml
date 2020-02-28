@@ -1,0 +1,24 @@
+---
+- name: create drone user
+  user:
+    name: drone
+    state: present
+    system: True
+    shell: "/usr/sbin/nologin"
+    home: "/var/lib/drone"
+  tags: drone
+
+- name: create config directory
+  file:
+    dest: /etc/drone
+    state: directory
+    mode: "0755"
+  tags: drone
+
+- include: server.yml
+- include: agent.yml
+
+# SET GLOBAL innodb_large_prefix = ON;
+# SET GLOBAL innodb_file_format=Barracuda;
+# SET GLOBAL innodb_file_per_table=ON;
+# SET GLOABL innodb_default_row_format=dynamic

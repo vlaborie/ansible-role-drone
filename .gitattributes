@@ -1,0 +1,2 @@
+files/drone-server filter=lfs diff=lfs merge=lfs -text
+files/drone-agent filter=lfs diff=lfs merge=lfs -text

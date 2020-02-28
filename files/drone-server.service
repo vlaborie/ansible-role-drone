@@ -1,0 +1,16 @@
+[Unit]
+Description=Drone server
+ 
+[Service]
+User=drone
+Group=drone
+Environment=DRONE_LOGS_TEXT=true
+EnvironmentFile=/etc/drone/server.conf
+
+ExecStart=/usr/local/bin/drone-server
+WorkingDirectory=/var/lib/drone
+Restart=on-failure
+TimeoutStopSec=300
+ 
+[Install]
+WantedBy=multi-user.target

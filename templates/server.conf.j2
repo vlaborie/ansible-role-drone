@@ -1,0 +1,17 @@
+DRONE_AGENTS_ENABLED="true"
+DRONE_SERVER_HOST="{{ drone_server_host | mandatory }}"
+DRONE_SERVER_PROTO="https"
+DRONE_RPC_SECRET="{{ drone_rpc_secret | mandatory }}"
+
+{% if drone_gitea_server is defined %}
+DRONE_GITEA_SERVER="{{ drone_gitea_server | mandatory }}"
+DRONE_GITEA_CLIENT_ID="{{ drone_gitea_client_id | mandatory }}"
+DRONE_GITEA_CLIENT_SECRET="{{ drone_gitea_client_secret | mandatory }}"
+{% endif %}
+
+{% if drone_user_create is defined %}
+DRONE_USER_CREATE="{{ drone_user_create }}"
+{% endif %}
+{% if drone_user_filter is defined and (drone_user_filter|length>0) %}
+DRONE_USER_FILTER="{{ drone_user_filter | join(',') }}"
+{% endif %}

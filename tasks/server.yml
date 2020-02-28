@@ -1,0 +1,32 @@
+---
+- name: copy drone-server config
+  template:
+    src: server.conf.j2
+    dest: /etc/drone/server.conf
+    mode: "0640"
+    group: drone
+  notify: restart drone-server
+  tags: drone
+
+- name: copy drone-server service
+  copy:
+    src: drone-server.service
+    dest: /etc/systemd/system/drone-server.service
+  tags: drone
+
+- name: copy drone-server binary
+  get_url:
+    url: "https://github.com/vlaborie/ansible-role-drone/blob/master/files/drone-server?raw=true"
+    checksum: "sha256:40cc0782f29415a335efa369397af453911fc3b5ac4c9ae6c2feb1102d911291"
+    dest: /usr/local/bin/drone-server
+    mode: "0755"
+  notify: restart drone-server
+  tags: drone
+
+- name: start and enable drone server
+  systemd:
+    name: drone-server
+    state: started
+    daemon-reload: True
+    enabled: True
+  tags: drone
