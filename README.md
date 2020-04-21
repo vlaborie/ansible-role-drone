@@ -13,7 +13,7 @@ sudo apt install git-lfs
 For building Drone binaries, you need docker and make, on Debian run:
 
 ~~~
-sudo apt install docker make
+sudo apt install docker.io make
 ~~~
 
 And then run make:
