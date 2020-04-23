@@ -17,7 +17,7 @@
 - name: copy drone-server binary
   get_url:
     url: "https://github.com/vlaborie/ansible-role-drone/blob/master/files/drone-server?raw=true"
-    checksum: "sha256:40cc0782f29415a335efa369397af453911fc3b5ac4c9ae6c2feb1102d911291"
+    checksum: "sha256:0523dfccea0f2221bc5bb9d12c33248703cbf520a3d091050704e3018a83d64a"
     dest: /usr/local/bin/drone-server
     mode: "0755"
   notify: restart drone-server

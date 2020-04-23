@@ -31,7 +31,7 @@
 - name: copy drone-agent binary
   get_url:
     url: "https://github.com/vlaborie/ansible-role-drone/blob/master/files/drone-agent?raw=true"
-    checksum: "sha256:6207b0a14f6ec5208f5e4bd6e7854231cc44966e9a0c2f1573bc2c82bfb98efb"
+    checksum: "sha256:0b1975789394e2523d5107cd4387faece97af331554a2f5dcf4a7dee85ca05a7"
     dest: /usr/local/bin/drone-agent
     mode: "0755"
   notify: restart drone-server
